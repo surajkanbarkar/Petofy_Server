@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "interval",
+    "type": "java.lang.String",
+    "description": "A description for 'interval'"
+  },
+  {
+    "name": "interval-in-cron-overdue",
+    "type": "java.lang.String",
+    "description": "A description for 'interval-in-cron-overdue'"
+  },
+  {
+    "name": "interval-in-cron-expired",
+    "type": "java.lang.String",
+    "description": "A description for 'interval-in-cron-expired'"
+  },
+  {
+    "name": "interval-in-cron-processing",
+    "type": "java.lang.String",
+    "description": "A description for 'interval-in-cron-processing'"
+  }
+]}
