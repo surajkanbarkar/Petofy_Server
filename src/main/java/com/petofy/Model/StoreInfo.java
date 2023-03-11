@@ -28,7 +28,7 @@ public class StoreInfo {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="userId")
-	@JsonIgnore
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Users users;
     
 	public StoreInfo() {}

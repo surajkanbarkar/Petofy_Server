@@ -9,6 +9,6 @@ public interface StoreInfoService {
 	boolean addStoreInfo(StoreInfoDTO storeInfoDTO);
 	boolean updateStoreInfo(StoreInfoDTO storeInfoDTO);
 	boolean deleteStoreInfo(int userId, int storeId);
-	StoreInfo getStoreInfoById(int storeId);
+	StoreInfo getStoreInfoById(int userId);
 	List<StoreInfo> getAllStoresList(int userId);
 }

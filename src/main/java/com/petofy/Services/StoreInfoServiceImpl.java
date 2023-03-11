@@ -69,10 +69,9 @@ public class StoreInfoServiceImpl implements StoreInfoService{
 		}
 		return false;
 	}
-
 	@Override
-	public StoreInfo getStoreInfoById(int storeId) {
-		StoreInfo storeInfo2 = storeInfoRepository.getByStoreId(storeId);
+	public StoreInfo getStoreInfoById(int userId) {
+		StoreInfo storeInfo2 = storeInfoRepository.findByUserId(userId);
 		if (storeInfo2 != null) {
 			return storeInfo2;
 		}

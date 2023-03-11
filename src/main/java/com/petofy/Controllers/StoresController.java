@@ -30,9 +30,14 @@ public class StoresController {
 	
 	@PostMapping("/add")
 	private ResponseEntity<?> addStore(@RequestBody StoreInfoDTO storeInfoDTO){
-		boolean result = storeInfoService.addStoreInfo(storeInfoDTO);
-		if (result) return Response.success(result, "Store added successfully!");
-		return Response.error(result, "Invalid user or store name already exists");
+		try {
+			boolean result = storeInfoService.addStoreInfo(storeInfoDTO);
+			if (result) return Response.success(result, "Store added successfully!");
+			return Response.error(result, "Invalid user or store name already exists");
+		}catch (Exception e) {
+			return Response.error(false, "User store info not exists");
+		}
+		
 	}
 	@PutMapping("/update")
 	private ResponseEntity<?> updateStore(@RequestBody StoreInfoDTO storeInfoDTO ){
@@ -52,9 +57,9 @@ public class StoresController {
 		if (!result.isEmpty()) return Response.success(result, "");
 		return Response.error(result, "Something went wrong");
 	}
-	@GetMapping("/get_store/{storeId}")
-	private ResponseEntity<?> getStore(@PathVariable("storeId") int storeId){
-		StoreInfo result = storeInfoService.getStoreInfoById(storeId);
+	@GetMapping("/get_store/{userId}")
+	private ResponseEntity<?> getStore(@PathVariable("userId") int userId){
+		StoreInfo result = storeInfoService.getStoreInfoById(userId);
 		if (result != null) return Response.success(result, "");
 		return Response.error(result, "Something went wrong");
 	}

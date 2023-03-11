@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.petofy.DTO.PetsDTO;
 import com.petofy.DTO.UserRoles;
@@ -117,6 +118,12 @@ public class PetsServiceImpl implements PetsService{
 	public List<Pets> getAllPetsBySearch(int userId, String searchKey) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Resource getPetImage(String userId, String imageName) {
+		//Resource file = storageService.load(userId, imageName);
+		return storageService.load(userId, imageName);
 	}
 	
 }

@@ -40,7 +40,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 				if (BCRYPT.matches(userAuth.getPassword(), user.getPassword())) {
 					user.setLoggedIn(true);
 					usersRepository.save(user);
-					return usersRepository.save(user);
+					//user.setPassword(null);
+					return user;
 				}
 		return null;
 	}
@@ -156,6 +157,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			}
 			else return "Passwords not matched";
 		return "Invalid email";
+	}
+
+	@Override
+	public Users getUserByUserId(int userId) {
+		return usersRepository.getByUserId(userId);
 	}
 
 }

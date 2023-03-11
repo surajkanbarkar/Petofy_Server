@@ -1,10 +1,14 @@
 package com.petofy.Controllers;
 
+import java.io.IOException;
+import java.nio.channels.ReadableByteChannel;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,16 +37,16 @@ public class PetsController {
 	
 	@PostMapping("/add/{userId}/{storeId}") 
 	private ResponseEntity<?> addPetInfo(@PathVariable("userId") int userid, @PathVariable("storeId") int storeid, 
-			@RequestParam String petOrigin,@RequestParam String petBreedGroup, @RequestParam String petHeight,
+			@RequestParam("petOrigin") String petOrigin,@RequestParam String petBreedGroup, @RequestParam String petHeight,
 			@RequestParam String petWeight,@RequestParam String petLifespan, @RequestParam String petBreed,
 			@RequestParam String petTemperament,@RequestParam String petApartmentFriendly, @RequestParam String petPrice,
-			@RequestParam int petQuantity, @RequestParam("file") MultipartFile file){
+			@RequestParam String petQuantity, @RequestParam("file") MultipartFile file) throws IOException{
 		
 		PetsDTO petsDTO = new PetsDTO();
 		petsDTO.setPetOrigin(petOrigin); petsDTO.setPetBreed(petBreed);petsDTO.setPetBreedGroup(petBreedGroup);
 		petsDTO.setPetHeight(petHeight); petsDTO.setPetWeight(petWeight); petsDTO.setPetLifespan(petLifespan);
 		petsDTO.setPetTemperament(petTemperament); petsDTO.setPetApartmentFriendly(petApartmentFriendly);
-		petsDTO.setPetPrice(petPrice); petsDTO.setPetQuantity(petQuantity);petsDTO.setFile(file);
+		petsDTO.setPetPrice(petPrice); petsDTO.setPetQuantity(Integer.parseInt(petQuantity));petsDTO.setFile(file);
 		
 		boolean result = petsService.addPet(petsDTO, userid, storeid);
 		if (result) return Response.success(result, "Pet Information added successfully");
@@ -69,7 +73,6 @@ public class PetsController {
 		if (result != null) return Response.success(result, "");
 		return Response.error(result, "Records not found");
 	}
-	
 	@GetMapping("/all_pets/{userId}")
 	private ResponseEntity<?> allPets(@PathVariable("userId") int userId){
 		List<Pets> result = petsService.getAllPetsList(userId);
@@ -81,5 +84,11 @@ public class PetsController {
 		List<Pets> result = petsService.getAllPetsListBySearch(userId, key);
 		if (!result.isEmpty()) return Response.success(result, "");
 		return Response.error(result, "Records not found");
+	}
+	@GetMapping(value ="/load_petImage/{userId}/{imageName}", produces = MediaType.IMAGE_PNG_VALUE)
+	private Resource getPetImage(@PathVariable("userId") String userId, @PathVariable("imageName") String imageName) throws IOException{
+		Resource result = petsService.getPetImage(userId, imageName);
+		if (result.exists()) return result;
+		return result;
 	}
 }

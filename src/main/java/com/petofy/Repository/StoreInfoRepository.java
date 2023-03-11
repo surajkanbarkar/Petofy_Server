@@ -12,6 +12,9 @@ import com.petofy.Model.StoreInfo;
 public interface StoreInfoRepository extends JpaRepository<StoreInfo, Integer>{
 	
 	StoreInfo getByStoreId(int storeId);
+	@Query(nativeQuery = true,
+			value = "Select * from storeinfo where userId = :userId")
+	StoreInfo findByUserId(int userId);
 	StoreInfo findByStoreId(int storeId);
 	List<StoreInfo> findByStoreName(String storeName);
 	@Query(nativeQuery = true,

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -98,6 +99,16 @@ public class AuthenticationController {
 		boolean result = authenticationService.updateUserDetails(user);
 		if(result) {
 			return Response.success(result, "Profile updated successfully!");
+		}
+		return Response.error(result, "Someting went wrong");
+	}
+	
+	@GetMapping("/get_profile/{userId}")
+	private ResponseEntity<?> getProfile(@PathVariable String userId) {
+		
+		Users result = authenticationService.getUserByUserId(Integer.parseInt(userId));
+		if(result != null) {
+			return Response.success(result, "Profile details fetched!");
 		}
 		return Response.error(result, "Someting went wrong");
 	}

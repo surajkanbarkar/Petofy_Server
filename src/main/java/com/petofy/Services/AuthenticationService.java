@@ -18,4 +18,5 @@ public interface AuthenticationService {
 	boolean deleteGovId(int userId, String fileName) throws IOException;
 	boolean grantUserAccess(int adminUserId, int userId, String userRole, boolean isUserValid);
 	String forgotPassword(String emailId, String password, String confirmPass);
+	Users getUserByUserId(int userId);
 }
