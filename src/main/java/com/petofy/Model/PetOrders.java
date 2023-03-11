@@ -26,7 +26,7 @@ public class PetOrders {
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "petsId")
-	@JsonIgnore
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "fieldHandler"})
 	private Pets pets;
 	
 	

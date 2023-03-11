@@ -66,7 +66,7 @@ public class PetsServiceImpl implements PetsService{
 
 	@Override
 	public boolean updatePet(PetsDTO petsDTO) {
-		Pets pet = petsRepository.findByPetIdAndStoreId(petsDTO.getPetsId(), petsDTO.getStoreId());
+		Pets pet = petsRepository.findByPetIdAndStoreId(petsDTO.getStoreId(), petsDTO.getPetsId());
 		if (pet != null) {
 			pet.setPetHeight(petsDTO.getPetHeight());
 			pet.setPetWeight(petsDTO.getPetWeight());

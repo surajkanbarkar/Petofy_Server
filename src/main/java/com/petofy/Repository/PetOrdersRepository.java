@@ -19,8 +19,11 @@ public interface PetOrdersRepository extends JpaRepository<PetOrders, Integer>{
 	void deleteOrdersByOrderIdAndUserId(int orderId, int userId);
 	void deleteByPetsOrderId(int orderId);
 	PetOrders findByPetsOrderId(int orderId);
+//	@Query(nativeQuery = true,
+//			value = "select * from petofy.pet_orders where userId = :userId order by orderUpdatedAt, orderStatus desc")
+//	List<PetOrders> findOrdersByUserId(int userId);
 	@Query(nativeQuery = true,
-			value = "select * from petofy.pet_orders where userId = :userId order by orderUpdatedAt, orderStatus desc")
+			value = "select * from petofy.pets_payment pp inner join petofy.pet_orders po on po.userId = pp.userId where pp.userId = :userId order by orderUpdatedAt, orderStatus desc")
 	List<PetOrders> findOrdersByUserId(int userId);
 	
 }

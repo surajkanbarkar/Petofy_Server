@@ -61,7 +61,7 @@ public class PetsController {
 	}
 	
 	@DeleteMapping("/delete/{storeId}/{petId}")
-	private ResponseEntity<?> updatePetInfo(@PathVariable("storeId") int storeId, @PathVariable("petId") int petId){
+	private ResponseEntity<?> deletePetInfo(@PathVariable("storeId") int storeId, @PathVariable("petId") int petId){
 		boolean result = petsService.deletePetInfo(storeId, petId);
 		if (result) return Response.success(result, "Pet Information deleted successfully");
 		return Response.error(result, "Something went wrong");
