@@ -59,10 +59,10 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			user.setUserRole(userDTO.getUserRole());
 			user.setPassword(encryptedPass);
 			
-			if (userDTO.getUserRole().equals(UserRoles.CUSTOMER.name()))
-				user.setUserValid(true);
-			else user.setUserValid(false);
-			
+//			if (userDTO.getUserRole().equals(UserRoles.CUSTOMER.name()))
+//				user.setUserValid(true);
+//			else user.setUserValid(false);
+			user.setUserValid(true);
 			user.setUserRole(UserRoles.valueOf(userDTO.getUserRole()).name());
 			user.setInsertedAt(new Date().toString());
 			user.setUpdatedAt(new Date().toString());

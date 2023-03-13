@@ -2,6 +2,7 @@ package com.petofy.Services;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -12,8 +13,10 @@ import com.petofy.DTO.PetOrderDTO;
 import com.petofy.DTO.UserRoles;
 import com.petofy.Model.PetOrders;
 import com.petofy.Model.Pets;
+import com.petofy.Model.PetsPayment;
 import com.petofy.Model.Users;
 import com.petofy.Repository.PetOrdersRepository;
+import com.petofy.Repository.PetsPaymentRepository;
 import com.petofy.Repository.PetsRepository;
 import com.petofy.Repository.UsersRepository;
 
@@ -24,8 +27,8 @@ public class PetOrdersServiceImpl implements PetOrdersService{
 	@Autowired
 	private UsersRepository usersRepository;
 	
-//	@Autowired
-//	private StoreInfoRepository storeInfoRepository;
+	@Autowired
+	private PetsPaymentRepository petsPaymentRepository;
 	
 	@Autowired
 	private PetOrdersRepository petOrdersRepository; 
@@ -52,6 +55,16 @@ public class PetOrdersServiceImpl implements PetOrdersService{
 			petOrders.setPets(pet);
 			petOrders.setUser(user);
 			petOrdersRepository.save(petOrders);
+			
+			PetsPayment petsPayment = new PetsPayment();
+			//petsPayment.setPetsPaymentAmount(pet.getPetPrice());
+			petsPayment.setPetsPaymentDatetime(new Date().toString());
+			petsPayment.setPetsPaymentMode("CASH");
+			petsPayment.setPetsPaymentStatus("SUCCESS");
+			petsPayment.setPetsPaymentTransactionId(UUID.randomUUID().toString());
+			petsPayment.setStoreInfo(pet.getStoreInfo());
+			petsPayment.setUsers(user);
+			petsPaymentRepository.save(petsPayment);
 			return true;
 		}
 		return false;
@@ -89,7 +102,10 @@ public class PetOrdersServiceImpl implements PetOrdersService{
 
 	@Override
 	public List<PetOrders> getPetOrdersByUserId(int userId) {
-		// TODO Auto-generated method stub
+		Users user = usersRepository.findByUserId(userId);
+		if (user != null) {
+			return petOrdersRepository.findOrdersByUserId(userId);
+		}
 		return null;
 	}
 

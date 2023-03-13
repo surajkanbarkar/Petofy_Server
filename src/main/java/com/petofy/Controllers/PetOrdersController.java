@@ -49,7 +49,7 @@ public class PetOrdersController {
 	}
 	@GetMapping("/all_orders/{userId}")
 	private ResponseEntity<?> getPetOrdersByUserId(@PathVariable("userId") int userId){
-		List<PetOrders> result = petOrdersService.getPetOrdersByStoreId(userId);
+		List<PetOrders> result = petOrdersService.getPetOrdersByUserId(userId);
 		if (!result.isEmpty()) return Response.success(result, "");
 		return Response.error(result, "No records found");
 	}

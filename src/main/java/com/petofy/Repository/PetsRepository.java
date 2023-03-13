@@ -15,6 +15,7 @@ public interface PetsRepository extends JpaRepository<Pets, Integer>{
 	List<Pets> findByPetBreed(String breed);
 	List<Pets> findByPetPrice(Double price);
 	List<Pets> findByPetInStock(boolean inStock);
+	
 	@Query(nativeQuery = true,
 			value = "select * from petofy.pets where storeId = :storeId and petsId = :petId")
 	Pets findByPetIdAndStoreId(int storeId, int petId);
