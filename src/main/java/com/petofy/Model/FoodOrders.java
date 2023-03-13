@@ -20,27 +20,18 @@ public class FoodOrders {
 	private boolean foodOrderStatus;
 	private String foodOrderDatetime;
 	private String foodExpectedOrderDeliveryDatetime;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "foodPaymentId")
 	private FoodPayment foodPayment;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "foodId")
 	private PetsFood petsFood;
 
-	public FoodOrders() {}
-		
-	public FoodOrders(int foodOrderId, boolean foodOrderStatus, String foodOrderDatetime,
-			String foodExpectedOrderDeliveryDatetime, FoodPayment foodPayment, PetsFood petsFood) {
-		super();
-		this.foodOrderId = foodOrderId;
-		this.foodOrderStatus = foodOrderStatus;
-		this.foodOrderDatetime = foodOrderDatetime;
-		this.foodExpectedOrderDeliveryDatetime = foodExpectedOrderDeliveryDatetime;
-		this.foodPayment = foodPayment;
-		this.petsFood = petsFood;
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId")
+	private Users user;
 
 	public int getFoodOrderId() {
 		return foodOrderId;
@@ -90,9 +81,17 @@ public class FoodOrders {
 		this.petsFood = petsFood;
 	}
 
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return super.toString();
 	}
+
 }
